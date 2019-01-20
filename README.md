@@ -2,6 +2,9 @@
 
 A new Flutter project to learn at least the flutter framework and the dart language.
 
+![Sneak Peak](/git_images/example1.jpg)
+Format: ![Alt Text](url)
+
 ## Getting Started (Just in case you have to)
 
 This project is a starting point for a Flutter application.
