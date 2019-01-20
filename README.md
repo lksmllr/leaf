@@ -2,8 +2,7 @@
 
 A new Flutter project to learn at least the flutter framework and the dart language.
 
-![Sneak Peak](/git_images/example1.jpg)
-Format: ![Alt Text](url)
+![Example1](/git_images/example1.jpg)
 
 ## Getting Started (Just in case you have to)
 
