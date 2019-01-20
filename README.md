@@ -1,8 +1,8 @@
 # leaf
 
-A new Flutter project.
+A new Flutter project to learn at least the flutter framework and the dart language.
 
-## Getting Started
+## Getting Started (Just in case you have to)
 
 This project is a starting point for a Flutter application.
 
