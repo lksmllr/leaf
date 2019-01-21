@@ -1,6 +1,6 @@
 # Leaf - Grow your's
 
-My furst flutter project to learn at least the flutter framework and the dart language.
+My first flutter project to learn at least the flutter framework and the dart language.
 
 ![Example1](/git_images/example1.jpg)
 
