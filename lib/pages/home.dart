@@ -5,52 +5,29 @@ import 'package:flutter/material.dart';
 import '../widgets/home_drawer.dart';
 import '../widgets/project_card.dart';
 
+import '../models/project.dart';
+
 class HomePage extends StatefulWidget {
+  final Function getDummyData;
+  final Function deleteProject;
+
+  HomePage(this.getDummyData, this.deleteProject);
+
   @override
   State<StatefulWidget> createState() {
-    return _HomePageState();
+    return _HomePageState(getDummyData, deleteProject);
   }
 }
 
 class _HomePageState extends State<HomePage> {
+  final Function getDummyData;
+  final Function deleteProject;
   final Random rnd = Random();
+  List<Project> projects;
 
-  // dummy data
-  //final List<Map<String, dynamic>> projects = [];
-  
-  final List<Map<String, dynamic>> projects = [
-    {
-      'project_name': 'test0',
-      'images': [
-        {'index': '0', 'image_url': './assets/stones.jpg'},
-      ]
-    },
-    {
-      'project_name': 'test1',
-      'images': [
-        {'index': '0', 'image_url': './assets/example1.png'},
-        {'index': '1', 'image_url': './assets/example2.png'},
-        {'index': '2', 'image_url': './assets/example3.png'}
-      ]
-    },
-    {
-      'project_name': 'test2',
-      'images': [
-        {'index': '0', 'image_url': './assets/example2.png'},
-        {'index': '1', 'image_url': './assets/example3.png'},
-        {'index': '2', 'image_url': './assets/example1.png'}
-      ]
-    },
-    {
-      'project_name': 'test3',
-      'images': [
-        {'index': '0', 'image_url': './assets/example3.png'},
-        {'index': '1', 'image_url': './assets/example1.png'},
-        {'index': '2', 'image_url': './assets/example2.png'}
-      ]
-    },
-  ];
-  
+  _HomePageState(this.getDummyData, this.deleteProject) {
+    projects = getDummyData();
+  }
 
   Widget _buildProjectList() {
     Widget projectList;
@@ -59,14 +36,12 @@ class _HomePageState extends State<HomePage> {
         itemBuilder: (BuildContext context, int index) => Container(
                 child: Column(
               children: <Widget>[
-                ProjectCard(context, projects[index]),
-                //Divider(color: Theme.of(context).primaryColor,),
+                ProjectCard(context, projects[index], index, deleteProject),
               ],
             )),
         itemCount: projects.length,
       );
     } else {
-      // TODO Display Add Button
       projectList = Center(
           child: FloatingActionButton(
         child: Icon(Icons.add),
@@ -108,6 +83,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    projects = getDummyData();
     return Scaffold(
       appBar: _buildHomeAppBar(),
       drawer: _buildSideDrawer(context),

@@ -4,13 +4,22 @@ import './home.dart';
 import '../animations/routes/fade_transition.dart';
 
 class AuthPage extends StatefulWidget {
+  final Function getDummyData;
+  final Function deleteProject;
+
+  AuthPage(this.getDummyData, this.deleteProject);
+
   @override
   State<StatefulWidget> createState() {
-    return _AuthPageState();
+    return _AuthPageState(getDummyData, deleteProject);
   }
 }
 
 class _AuthPageState extends State<AuthPage> {
+  final Function getDummyData;
+  final Function deleteProject;
+
+  _AuthPageState(this.getDummyData,this.deleteProject);
   final Map<String, dynamic> _formData = {
     'email': null,
     'password': null,
@@ -82,7 +91,7 @@ class _AuthPageState extends State<AuthPage> {
     //Navigator.pushReplacementNamed(context, '/home');
     Navigator.push(
       context,
-      new FadeRoute(builder: (context) => new HomePage()),
+      new FadeRoute(builder: (context) => new HomePage(getDummyData, deleteProject)),
     );
   }
 
@@ -126,7 +135,7 @@ class _AuthPageState extends State<AuthPage> {
                       onPressed: () {
                         Navigator.push(
                           context,
-                          new FadeRoute(builder: (context) => new HomePage()),
+                          new FadeRoute(builder: (context) => new HomePage(getDummyData, deleteProject)),
                         );
                       },
                     ),
