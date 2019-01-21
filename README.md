@@ -1,9 +1,8 @@
-# leaf
+# Leaf - Grow your's
 
-A new Flutter project to learn at least the flutter framework and the dart language.
+My furst flutter project to learn at least the flutter framework and the dart language.
 
-![Sneak Peak](/git_images/example1.jpg)
-Format: ![Alt Text](url)
+![Example1](/git_images/example1.jpg)
 
 ## Getting Started (Just in case you have to)
 
@@ -14,6 +13,6 @@ A few resources to get you started if this is your first Flutter project:
 - [Lab: Write your first Flutter app](https://flutter.io/docs/get-started/codelab)
 - [Cookbook: Useful Flutter samples](https://flutter.io/docs/cookbook)
 
-For help getting started with Flutter, view our 
+For help getting started with Flutter, view the 
 [online documentation](https://flutter.io/docs), which offers tutorials, 
 samples, guidance on mobile development, and a full API reference.
