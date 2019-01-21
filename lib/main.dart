@@ -14,6 +14,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.green,
           accentColor: Colors.grey,
+          backgroundColor: Colors.white,
         ),
         //home: MyHomePage(title: 'Flutter Demo Home Page'),
         routes: {
@@ -29,7 +30,7 @@ class MyApp extends StatelessWidget {
         },
         onUnknownRoute: (RouteSettings settings) {
         return MaterialPageRoute(
-            builder: (BuildContext context) => AuthPage());
+            builder: (BuildContext context) => HomePage());
       },
       );
   }

@@ -40,6 +40,9 @@ flutter:
   assets:
     - assets/leaf.png
     - assets/stones.jpg
+    - assets/example1.png
+    - assets/example2.png
+    - assets/example3.png
 
   #  - images/a_dot_ham.jpeg
 

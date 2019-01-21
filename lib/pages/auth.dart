@@ -33,13 +33,11 @@ class _AuthPageState extends State<AuthPage> {
           labelText: 'E-Mail', filled: false, fillColor: Colors.white),
       keyboardType: TextInputType.emailAddress,
       validator: (String value) {
-        /*
         if (value.isEmpty ||
             !RegExp(r"[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?")
                 .hasMatch(value)) {
           return 'Please enter a valid email';
         }
-        */
       },
       onSaved: (String value) {
         _formData['email'] = value;
@@ -53,11 +51,9 @@ class _AuthPageState extends State<AuthPage> {
           labelText: 'Password', filled: false, fillColor: Colors.white),
       obscureText: true,
       validator: (String value) {
-        /*
         if (value.isEmpty || value.length < 6) {
           return 'Password invalid';
         }
-        */
       },
       onSaved: (String value) {
         _formData['password'] = value;
@@ -85,9 +81,9 @@ class _AuthPageState extends State<AuthPage> {
     print(_formData);
     //Navigator.pushReplacementNamed(context, '/home');
     Navigator.push(
-                    context,
-                    new FadeRoute(builder: (context) => new HomePage()),
-                  );
+      context,
+      new FadeRoute(builder: (context) => new HomePage()),
+    );
   }
 
   @override
@@ -126,7 +122,13 @@ class _AuthPageState extends State<AuthPage> {
                       textColor: Colors.white,
                       color: Theme.of(context).primaryColor,
                       child: Text('LOGIN'),
-                      onPressed: _submitForm,
+                      //onPressed: _submitForm,
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          new FadeRoute(builder: (context) => new HomePage()),
+                        );
+                      },
                     ),
                   ],
                 ),
