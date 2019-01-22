@@ -5,8 +5,8 @@ import 'package:scoped_model/scoped_model.dart';
 
 import '../widgets/home_drawer.dart';
 import '../models/project.dart';
-import '../models/leaf.dart';
 import '../scoped_models/main.dart';
+import '../pages/leaf.dart';
 
 class HomePage extends StatelessWidget {
   final Random rnd = Random();
@@ -101,6 +101,9 @@ class HomePage extends StatelessWidget {
                                 icon: Icon(Icons.edit),
                                 onPressed: () {
                                   print('TODO: Edit Projects');
+                                  Navigator.push(context, 
+                                  MaterialPageRoute(builder: (BuildContext context) =>
+                                  LeafsPage(model: model, context: context, project: project,)));
                                 },
                               ),
                             ),
@@ -121,16 +124,16 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  Widget _buildHomeAppBar() {
+  Widget _buildHomeAppBar(String title) {
     return AppBar(
-      title: Text('My leafs'),
+      title: Text(title),
     );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: _buildHomeAppBar(),
+      appBar: _buildHomeAppBar('My Leafs'),
       drawer: _buildSideDrawer(context),
       body: _buildBody(),
     );
