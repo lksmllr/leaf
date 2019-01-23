@@ -7,9 +7,6 @@ import '../models/user.dart';
 class ConnectedProjectsModel extends Model {
   List<Project> _projects = [
     Project(
-      projectName: 'init',
-      leafs: [Leaf(imageURL: './assets/leaf.png')]),
-    Project(
       projectName: 'test0',
       leafs: [Leaf(imageURL: './assets/stones.jpg')],
     ),
@@ -28,6 +25,7 @@ class ConnectedProjectsModel extends Model {
         Leaf(imageURL: './assets/example3.png')
       ],
     ),
+    Project(projectName: 'new empty', leafs: []),
   ];
   int _selProductIndex;
   User _authenticatedUser;

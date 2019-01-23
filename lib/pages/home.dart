@@ -5,12 +5,19 @@ import 'package:scoped_model/scoped_model.dart';
 
 import '../widgets/home_drawer.dart';
 import '../models/project.dart';
+import '../models/leaf.dart';
 import '../scoped_models/main.dart';
 import '../pages/leaf.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() {
+    return _HomePageState();
+  }
+}
+
+class _HomePageState extends State<HomePage> {
   final Random rnd = Random();
-  //final List<Project> projects;
 
   Widget _buildSideDrawer(BuildContext context) {
     return HomeDrawer();
@@ -22,6 +29,50 @@ class HomePage extends StatelessWidget {
       colorFilter:
           ColorFilter.mode(Colors.black.withOpacity(0.60), BlendMode.dstATop),
       image: AssetImage('assets/leaf.png'),
+    );
+  }
+
+  Widget _buildProjectsListsTile(
+      BuildContext context, MainModel model, Project project) {
+    List<Leaf> images = project.leafs;
+    int num_images = images.length;
+    String image_url;
+
+    if (num_images > 0) {
+      image_url = images[project.leafs.length - 1].imageURL;
+    } else {
+      image_url = './assets/leaf.png';
+    }
+    
+    return Column(
+      children: <Widget>[
+        ListTile(
+          leading: CircleAvatar(
+            backgroundImage:
+                AssetImage(image_url),
+          ),
+          title: Text(project.projectName),
+          subtitle: Text('${project.leafs.length} leafs in here'),
+          trailing: IconButton(
+            iconSize: 25.0,
+            icon: Icon(Icons.edit),
+            onPressed: () {
+              print('TODO: Edit Projects');
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (BuildContext context) => LeafsPage(
+                        model: model,
+                        context: context,
+                        project: project,
+                      ),
+                ),
+              );
+            },
+          ),
+        ),
+        Divider(),
+      ],
     );
   }
 
@@ -37,87 +88,48 @@ class HomePage extends StatelessWidget {
             itemBuilder: (BuildContext context, int index) {
               final Project project = model.allProjects[index];
               //print(project.leafs.length);
-
-              if (index == 0) {
-                // add Project
-                return Column(
+              return Container(
+                child: Column(
                   children: <Widget>[
-                    ListTile(
-                      leading: CircleAvatar(
-                        backgroundImage: AssetImage(
-                            project.leafs[project.leafs.length - 1].imageURL),
-                      ),
-                      title: Text('New'),
-                      subtitle: Text('start growing now!'),
-                      trailing: IconButton(
-                        iconSize: 25.0,
-                        icon: Icon(Icons.arrow_upward, color: Theme.of(context).primaryColor),
-                        onPressed: () {
-                          print('TODO: Start project');
-                        },
-                      ),
-                    ),
-                    Divider(),
-                  ],
-                );
-              } else {
-                return Container(
-                  child: Column(
-                    children: <Widget>[
-                      Dismissible(
-                        key: Key(index.toString()),
-                        onDismissed: (DismissDirection direction) {
-                          if (direction == DismissDirection.endToStart) {
+                    Dismissible(
+                      key: Key(index.toString()),
+                      direction: DismissDirection.endToStart,
+                      onDismissed: (DismissDirection direction) {
+                        if (direction == DismissDirection.endToStart) {
+                          
+                          setState(() {
                             model.deleteProject(index);
-                          }
-                        },
-                        background: Container(
-                          color: Colors.red,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: <Widget>[
-                              Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 10.0),
-                                child: Icon(
-                                  Icons.delete,
-                                  color: Colors.grey,
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                        child: Column(
+                            print('num projects after dismissal: ' + model.allProjects.length.toString());
+                          });
+                          
+                          //model.deleteProject(index);
+                        } else {
+                          print(direction);
+                        }
+                      },
+                      background: Container(
+                        color: Colors.red,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
                           children: <Widget>[
-                            ListTile(
-                              leading: CircleAvatar(
-                                backgroundImage: AssetImage(project
-                                    .leafs[project.leafs.length - 1].imageURL),
+                            Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 10.0),
+                              child: Icon(
+                                Icons.delete,
+                                color: Colors.grey,
                               ),
-                              title: Text(project.projectName),
-                              subtitle:
-                                  Text('${project.leafs.length} leafs in here'),
-                              trailing: IconButton(
-                                iconSize: 25.0,
-                                icon: Icon(Icons.edit),
-                                onPressed: () {
-                                  print('TODO: Edit Projects');
-                                  Navigator.push(context, 
-                                  MaterialPageRoute(builder: (BuildContext context) =>
-                                  LeafsPage(model: model, context: context, project: project,)));
-                                },
-                              ),
-                            ),
-                            Divider(),
+                            )
                           ],
                         ),
-                      )
-                    ],
-                  ),
-                );
-              }
+                      ),
+                      child: _buildProjectsListsTile(context, model, project),
+                    )
+                  ],
+                ),
+              );
             },
             itemCount: model.allProjects.length,
-            reverse: true,
+            //reverse: true,
           );
         },
       ),
@@ -126,14 +138,29 @@ class HomePage extends StatelessWidget {
 
   Widget _buildHomeAppBar(String title) {
     return AppBar(
-      title: Text(title),
+      title: Center(child: Text(title)),
+      actions: <Widget>[
+        IconButton(
+          icon: Icon(Icons.create_new_folder),
+          onPressed: () {/*TODO*/},
+        ),
+        IconButton(
+          icon: Icon(Icons.search),
+          onPressed: () {/*TODO*/},
+        ),
+        //SizedBox(width: 10.0,),
+        IconButton(
+          icon: Icon(Icons.more_vert),
+          onPressed: () {/*TODO*/},
+        ),
+      ],
     );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: _buildHomeAppBar('My Leafs'),
+      appBar: _buildHomeAppBar('Projects'),
       drawer: _buildSideDrawer(context),
       body: _buildBody(),
     );
